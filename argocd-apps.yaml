@@ -1,0 +1,39 @@
+# Application cho Dev
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yas-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-org/yas-gitops
+    targetRevision: HEAD
+    path: charts        # trỏ vào folder charts/ trong yas-gitops
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+# Application cho Staging
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yas-staging
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-org/yas-gitops
+    targetRevision: HEAD
+    path: charts
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
