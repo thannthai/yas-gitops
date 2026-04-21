@@ -1,4 +1,4 @@
 backend:
   image:
     repository: thanhthai298/yas-tax
-    tag: db85e82
+    tag: test-v1
