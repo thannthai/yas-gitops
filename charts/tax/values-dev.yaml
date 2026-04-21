@@ -3,5 +3,7 @@ backend:
     repository: thanhthai298/yas-tax
     tag: test-v1
   env:
+    - name: MANAGEMENT_SERVER_PORT
+      value: "8090"
     - name: SERVER_PORT
       value: "8080"
