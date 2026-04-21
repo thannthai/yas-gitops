@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-storefront-bff
+    repository: thanhthai298/yas-storefront-bff
     tag: main

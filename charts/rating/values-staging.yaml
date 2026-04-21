@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-rating
+    repository: thanhthai298/yas-rating
     tag: main

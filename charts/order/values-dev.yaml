@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-order
+    repository: thanhthai298/yas-order
     tag: main

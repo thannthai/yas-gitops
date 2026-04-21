@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-search
+    repository: thanhthai298/yas-search
     tag: main

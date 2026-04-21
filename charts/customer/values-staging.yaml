@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-customer
+    repository: thanhthai298/yas-customer
     tag: main

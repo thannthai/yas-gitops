@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-inventory
+    repository: thanhthai298/yas-inventory
     tag: main

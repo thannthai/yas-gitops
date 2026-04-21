@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-recommendation
+    repository: thanhthai298/yas-recommendation
     tag: main

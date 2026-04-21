@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-sampledata
+    repository: thanhthai298/yas-sampledata
     tag: main

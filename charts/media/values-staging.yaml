@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-media
+    repository: thanhthai298/yas-media
     tag: main

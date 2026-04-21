@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-backoffice-bff
+    repository: thanhthai298/yas-backoffice-bff
     tag: main

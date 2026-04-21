@@ -1,4 +1,4 @@
 backend:
   image:
-    repository: thannthai/yas-webhook
+    repository: thanhthai298/yas-webhook
     tag: main
