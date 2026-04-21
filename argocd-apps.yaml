@@ -9,11 +9,18 @@ spec:
   source:
     repoURL: https://github.com/thannthai/yas-gitops
     targetRevision: HEAD
-    path: charts        # trỏ vào folder charts/ trong yas-gitops
+    path: charts
+    helm:
+      ignoreMissingValueFiles: true   # không lỗi nếu values-dev.yaml chưa có
+      valueFiles:
+        - values.yaml        # config chung (base)
+        - values-dev.yaml    # override tag cho dev namespace
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
@@ -30,10 +37,17 @@ spec:
     repoURL: https://github.com/thannthai/yas-gitops
     targetRevision: HEAD
     path: charts
+    helm:
+      ignoreMissingValueFiles: true   # không lỗi nếu values-staging.yaml chưa có
+      valueFiles:
+        - values.yaml            # config chung (base)
+        - values-staging.yaml    # override tag cho staging namespace
   destination:
     server: https://kubernetes.default.svc
     namespace: staging
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
