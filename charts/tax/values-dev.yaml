@@ -2,3 +2,6 @@ backend:
   image:
     repository: thanhthai298/yas-tax
     tag: test-v1
+  env:
+    - name: SERVER_PORT
+      value: "8080"
