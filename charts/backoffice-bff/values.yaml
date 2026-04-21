@@ -1,7 +1,13 @@
 backend:
   image:
-    repository: ghcr.io/nashtech-garage/yas-backoffice-bff
-    tag: latest
+    repository: thanhthai298/yas-backoffice-bff
+    tag: main
+
+  env:
+    - name: MANAGEMENT_SERVER_PORT
+      value: "8090"
+    - name: SERVER_PORT
+      value: "8080"
 
   nameOverride: backoffice-bff
   fullnameOverride: backoffice-bff

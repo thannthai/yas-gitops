@@ -2,3 +2,10 @@ backend:
   image:
     repository: thanhthai298/yas-product
     tag: main
+
+  livenessProbe:
+    initialDelaySeconds: 120
+    timeoutSeconds: 5
+  readinessProbe:
+    initialDelaySeconds: 120
+    timeoutSeconds: 5

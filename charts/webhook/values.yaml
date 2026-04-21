@@ -1,7 +1,13 @@
 backend:
   image:
-    repository: ghcr.io/nashtech-garage/yas-webhook
-    tag: latest
+    repository: thanhthai298/yas-webhook
+    tag: main
+
+  env:
+    - name: MANAGEMENT_SERVER_PORT
+      value: "8090"
+    - name: SERVER_PORT
+      value: "8080"
 
   nameOverride: webhook
   fullnameOverride: webhook

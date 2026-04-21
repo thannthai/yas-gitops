@@ -1,13 +1,11 @@
 backend:
   image:
     repository: thanhthai298/yas-tax
-    tag: test-v1
-  env:
-    - name: MANAGEMENT_SERVER_PORT
-      value: "8090"
-    - name: SERVER_PORT
-      value: "8080"
+    tag: main
+
   livenessProbe:
     initialDelaySeconds: 120
+    timeoutSeconds: 5
   readinessProbe:
     initialDelaySeconds: 120
+    timeoutSeconds: 5

@@ -1,7 +1,13 @@
 backend:
   image:
-    repository: ghcr.io/nashtech-garage/yas-order
-    tag: db85e82
+    repository: thanhthai298/yas-order
+    tag: main
+
+  env:
+    - name: MANAGEMENT_SERVER_PORT
+      value: "8090"
+    - name: SERVER_PORT
+      value: "8080"
 
   nameOverride: order
   fullnameOverride: order
