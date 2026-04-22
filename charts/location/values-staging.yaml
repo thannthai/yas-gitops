@@ -2,8 +2,3 @@ backend:
   image:
     repository: thanhthai298/yas-location
     tag: main
-
-  llivenessProbe:
-    initialDelaySeconds: 60
-  readinessProbe:
-    initialDelaySeconds: 60

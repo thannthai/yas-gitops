@@ -2,8 +2,3 @@ backend:
   image:
     repository: thanhthai298/yas-sampledata
     tag: main
-
-  livenessProbe:
-    initialDelaySeconds: 60
-  readinessProbe:
-    initialDelaySeconds: 60

@@ -2,8 +2,3 @@ backend:
   image:
     repository: thanhthai298/yas-webhook
     tag: main
-
-  livenessProbe:
-    initialDelaySeconds: 60
-  readinessProbe:
-    initialDelaySeconds: 60
