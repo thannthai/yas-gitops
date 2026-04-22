@@ -37,7 +37,7 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 logbackXmlPath: /opt/yas/config/logback.xml
-httpPort: 80
+httpPort: 8080
 metricPort: 8090
 databaseConnectionUrl: jdbc:postgresql://postgresql.postgres:5432
 databaseName: postgres
@@ -47,7 +47,12 @@ deployment:
     reloader.stakater.com/search: "true"
   extraAnnotations: []
 
-extraEnvs: []
+
+extraEnvs:
+  - name: MANAGEMENT_SERVER_PORT
+    value: "8090"
+  - name: SERVER_PORT
+    value: "8080"
 #  - name: EXTRA_VARIABLE_NAME
 #    value: extra variable data
 
@@ -82,15 +87,6 @@ extraVolumeMounts: []
 extraApplicationConfigPaths: []
 #  - /opt/config/application-example.yaml
 
-extraEnvs:
-  - name: MANAGEMENT_SERVER_PORT
-    value: "8090"
-  - name: SERVER_PORT
-    value: "8080"
-  - name: MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED
-    value: "true"
-  - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
-    value: "health,info,prometheus"
 
 lifecycle:
   preStop:
@@ -122,7 +118,7 @@ serviceMonitor:
 
 service:
   type: NodePort
-  port: 80
+  port: 8080
 
 ingress:
   enabled: false
@@ -135,7 +131,13 @@ ingress:
 #    secretName: chart-example-tls
 #    host: chart-example.local
 
-resources: {}
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+  requests:
+    memory: "512Mi"
+    cpu: "200m"
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
