@@ -96,8 +96,9 @@ lifecycle:
 terminationGracePeriodSeconds: 45
 
 livenessProbe:
-  initialDelaySeconds: 60
+  initialDelaySeconds: 120
   periodSeconds: 10
+  timeoutSeconds: 5
   failureThreshold: 12
   successThreshold: 1
   httpGet:
@@ -105,8 +106,9 @@ livenessProbe:
     port: metric
 
 readinessProbe:
-  initialDelaySeconds: 60
+  initialDelaySeconds: 120
   periodSeconds: 10
+  timeoutSeconds: 5
   failureThreshold: 12
   successThreshold: 1
   httpGet:
