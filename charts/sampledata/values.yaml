@@ -3,12 +3,6 @@ backend:
     repository: thanhthai298/yas-sampledata
     tag: main
 
-  env:
-    - name: MANAGEMENT_SERVER_PORT
-      value: "8090"
-    - name: SERVER_PORT
-      value: "8080"
-
   nameOverride: sampledata
   fullnameOverride: sampledata
   databaseName: sampledata

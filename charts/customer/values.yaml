@@ -3,11 +3,6 @@ backend:
     repository: thanhthai298/yas-customer
     tag: main
 
-  env:
-    - name: MANAGEMENT_SERVER_PORT
-      value: "8090"
-    - name: SERVER_PORT
-      value: "8080"
 
   nameOverride: customer
   fullnameOverride: customer
