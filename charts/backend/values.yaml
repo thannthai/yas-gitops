@@ -37,7 +37,7 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 logbackXmlPath: /opt/yas/config/logback.xml
-httpPort: 80
+httpPort: 8080
 metricPort: 8090
 databaseConnectionUrl: jdbc:postgresql://postgresql.postgres:5432
 databaseName: postgres
@@ -120,7 +120,7 @@ serviceMonitor:
 
 service:
   type: NodePort
-  port: 8080
+  port: 80
 
 ingress:
   enabled: false
