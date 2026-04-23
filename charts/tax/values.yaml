@@ -7,4 +7,10 @@ backend:
   fullnameOverride: tax
   databaseName: tax
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    host: api.yas.local.com
+    path: /tax(/|$)(.*)
+    pathType: ImplementationSpecific

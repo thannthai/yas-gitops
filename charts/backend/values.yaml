@@ -123,12 +123,12 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations: {}
   host: api.yas.local.com
   path: /
-  pathType: Prefix
+  pathType: ImplementationSpecific
   tls: {}
 #    secretName: chart-example-tls
 #    host: chart-example.local
