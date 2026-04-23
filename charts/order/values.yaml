@@ -12,8 +12,8 @@ backend:
     className: "nginx"
     annotations: {}
     host: api.yas.local.com
-    path: /order(/|$)(.*)
-    pathType: ImplementationSpecific
+    path: /order
+  pathType: Prefix
 
   extraVolumes:
     - name: order-application-config

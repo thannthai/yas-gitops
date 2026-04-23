@@ -9,8 +9,7 @@ backend:
   ingress:
     enabled: true
     className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    annotations: {}
     host: api.yas.local.com
-    path: /tax(/|$)(.*)
-    pathType: ImplementationSpecific
+    path: /tax
+    pathType: Prefix
