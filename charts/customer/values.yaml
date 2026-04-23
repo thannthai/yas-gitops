@@ -8,7 +8,12 @@ backend:
   fullnameOverride: customer
   databaseName: customer
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /customer
+    pathType: Prefix
   extraEnvFroms:
     - secretRef:
         name: yas-keycloak-credentials-secret

@@ -7,7 +7,12 @@ backend:
   fullnameOverride: product
   databaseName: product
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /product
+    pathType: Prefix
   extraVolumes:
     - name: product-application-config
       configMap:

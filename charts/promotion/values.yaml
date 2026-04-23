@@ -7,4 +7,9 @@ backend:
   fullnameOverride: promotion
   databaseName: promotion
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /promotion
+    pathType: Prefix

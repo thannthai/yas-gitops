@@ -7,7 +7,12 @@ backend:
   fullnameOverride: sampledata
   databaseName: sampledata
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /sampledata
+    pathType: Prefix
   extraVolumes:
     - name: sampledata-application
       configMap:

@@ -8,7 +8,12 @@ backend:
   fullnameOverride: cart
   databaseName: cart
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /cart
+    pathType: Prefix
   extraVolumes:
     - name: cart-application-config
       configMap:

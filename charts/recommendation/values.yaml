@@ -7,7 +7,12 @@ backend:
   fullnameOverride: recommendation
   databaseName: recommendation
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /recommendation
+    pathType: Prefix
   extraEnvFroms:
     - secretRef:
         name: yas-openai-api-key-secret

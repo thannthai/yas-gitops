@@ -8,4 +8,9 @@ backend:
   fullnameOverride: inventory
   databaseName: inventory
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /inventory
+    pathType: Prefix

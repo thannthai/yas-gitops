@@ -7,7 +7,12 @@ backend:
   fullnameOverride: payment-paypal
   databaseName: payment-paypal
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /payment-paypal
+    pathType: Prefix
   extraVolumes:
     - name: payment-paypal-application-config
       configMap:

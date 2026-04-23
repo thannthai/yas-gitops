@@ -7,4 +7,9 @@ backend:
   fullnameOverride: rating
   databaseName: rating
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /rating
+    pathType: Prefix

@@ -8,7 +8,12 @@ backend:
   fullnameOverride: media
   databaseName: media
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /media
+    pathType: Prefix
   extraVolumes:
     - name: media-application
       configMap:

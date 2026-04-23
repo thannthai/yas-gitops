@@ -3,11 +3,13 @@ backend:
     repository: thanhthai298/yas-webhook
     tag: main
 
-  env:
-    - name: MANAGEMENT_SERVER_PORT
-      value: "8090"
-    - name: SERVER_PORT
-      value: "8080"
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    host: api.yas.local.com
+    path: /webhook
+    pathType: Prefix
 
   nameOverride: webhook
   fullnameOverride: webhook
