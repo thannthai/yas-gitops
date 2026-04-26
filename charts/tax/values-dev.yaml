@@ -1,4 +1,4 @@
 backend:
   image:
     repository: thanhthai298/yas-tax
-    tag: v2-actuator
+    tag: v3-actuator
