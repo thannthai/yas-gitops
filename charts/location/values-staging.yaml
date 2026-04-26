@@ -1,4 +1,4 @@
 backend:
   image:
     repository: thanhthai298/yas-location
-    tag: main
+    tag: v1.0.1
