@@ -96,7 +96,7 @@ lifecycle:
 terminationGracePeriodSeconds: 45
 
 livenessProbe:
-  initialDelaySeconds: 160
+  initialDelaySeconds: 150
   periodSeconds: 30
   timeoutSeconds: 15
   failureThreshold: 12
@@ -106,7 +106,7 @@ livenessProbe:
     port: metric
 
 readinessProbe:
-  initialDelaySeconds: 160
+  initialDelaySeconds: 150
   periodSeconds: 20
   timeoutSeconds: 15
   failureThreshold: 12
@@ -123,8 +123,8 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: "nginx"
+  enabled: true
+  className: ""
   annotations: {}
   host: api.yas.local.com
   path: /
