@@ -96,10 +96,10 @@ lifecycle:
 terminationGracePeriodSeconds: 45
 
 livenessProbe:
-  initialDelaySeconds: 140
+  initialDelaySeconds: 200
   periodSeconds: 10
   timeoutSeconds: 5
-  failureThreshold: 5
+  failureThreshold: 30
   successThreshold: 1
   httpGet:
     path: /actuator/health/liveness
