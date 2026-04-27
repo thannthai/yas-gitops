@@ -8,7 +8,7 @@ backend:
   databaseName: payment
   ingress:
     enabled: true
-    className: "nginx"
+    className: ""
     annotations: {}
     host: api.yas.local.com
     path: /payment

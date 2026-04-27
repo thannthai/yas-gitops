@@ -5,7 +5,7 @@ backend:
 
   ingress:
     enabled: true
-    className: "nginx"
+    className: ""
     annotations: {}
     host: api.yas.local.com
     path: /webhook
