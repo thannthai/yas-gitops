@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-payment-paypal
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: payment-paypal
   fullnameOverride: payment-paypal
   databaseName: payment-paypal

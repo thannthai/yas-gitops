@@ -3,6 +3,8 @@ backend:
     repository: thanhthai298/yas-cart
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
 
   nameOverride: cart
   fullnameOverride: cart

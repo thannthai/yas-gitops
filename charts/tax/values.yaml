@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-tax
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: tax
   fullnameOverride: tax
   databaseName: tax
@@ -13,3 +16,5 @@ backend:
     host: api.yas.local.com
     path: /tax
     pathType: Prefix
+
+    

@@ -3,6 +3,9 @@ backend:
     repository: ghcr.io/nashtech-garage/yas-storefront-bff
     tag: latest
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: storefront-bff
   fullnameOverride: storefront-bff
 

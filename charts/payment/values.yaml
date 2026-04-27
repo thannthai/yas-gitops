@@ -2,6 +2,9 @@ backend:
   image:
     repository: thanhthai298/yas-payment
     tag: main
+
+  imagePullSecrets:
+  - name: dockerhub-secret
     
   nameOverride: payment
   fullnameOverride: payment

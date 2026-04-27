@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-sampledata
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: sampledata
   fullnameOverride: sampledata
   databaseName: sampledata

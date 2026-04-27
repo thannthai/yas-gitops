@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-promotion
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: promotion
   fullnameOverride: promotion
   databaseName: promotion

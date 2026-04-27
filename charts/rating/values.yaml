@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-rating
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: rating
   fullnameOverride: rating
   databaseName: rating

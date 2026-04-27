@@ -2,7 +2,9 @@ backend:
   image:
     repository: thanhthai298/yas-media
     tag: main
-
+    
+  imagePullSecrets:
+  - name: dockerhub-secret
 
   nameOverride: media
   fullnameOverride: media

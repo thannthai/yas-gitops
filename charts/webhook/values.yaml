@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-webhook
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   ingress:
     enabled: true
     className: ""

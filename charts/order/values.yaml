@@ -3,6 +3,8 @@ backend:
     repository: thanhthai298/yas-order
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
 
   nameOverride: order
   fullnameOverride: order

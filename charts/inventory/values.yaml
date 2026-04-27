@@ -3,6 +3,8 @@ backend:
     repository: thanhthai298/yas-inventory
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
 
   nameOverride: inventory
   fullnameOverride: inventory

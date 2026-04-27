@@ -3,6 +3,9 @@ backend:
     repository: thanhthai298/yas-search
     tag: main
 
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: search
   fullnameOverride: search
   databaseName: search
