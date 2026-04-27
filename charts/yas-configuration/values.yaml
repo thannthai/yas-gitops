@@ -261,9 +261,9 @@ customerApplicationConfig:
 # Search application config custom
 searchApplicationConfig:
   elasticsearch:
-    url: elasticsearch-es-http.elasticsearch
-    username: ${ELASTICSEARCH_USERNAME}
-    password: ${ELASTICSEARCH_PASSWORD}
+    url: https://elasticsearch-es-http.elasticsearch.svc.cluster.local:9200
+    username: elastic
+    password: ZiG0P5GLgJgvtatjsazWAKY3
 
 # Payment-paypal application config custom
 paymentPaypalApplicationConfig:
