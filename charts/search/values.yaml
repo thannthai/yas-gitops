@@ -6,6 +6,11 @@ backend:
   imagePullSecrets:
   - name: dockerhub-secret
 
+  elasticsearch:
+    url: https://elasticsearch-es-http.elasticsearch.svc.cluster.local:9200
+    username: elastic
+    password: ZiG0P5GLgJgvtatjsazWAKY3
+
   nameOverride: search
   fullnameOverride: search
   databaseName: search
