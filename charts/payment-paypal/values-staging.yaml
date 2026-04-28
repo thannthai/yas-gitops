@@ -1,4 +1,4 @@
 backend:
   image:
     repository: thanhthai298/yas-payment-paypal
-    tag: v1.0.3
+    tag: v1.0.5
