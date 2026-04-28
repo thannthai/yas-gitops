@@ -1,4 +1,4 @@
 backend:
   image:
     repository: thanhthai298/yas-search
-    tag: v1.0.9
+    tag: v1.0.10
