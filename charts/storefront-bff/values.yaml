@@ -9,8 +9,6 @@ backend:
   nameOverride: storefront-bff
   fullnameOverride: storefront-bff
 
-  httpPort: 80
-
   deployment:
     annotations:
       configmap.reloader.stakater.com/reload: "yas-gateway-routes-config-configmap,storefront-bff-extra-configmap"
@@ -23,8 +21,6 @@ backend:
   extraEnvs:
     - name: SPRING_PROFILES_ACTIVE
       value: prod
-    - name: SERVER_PORT
-      value: "80"
     - name: UI_HOST
       value: http://storefront-ui:3000
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
