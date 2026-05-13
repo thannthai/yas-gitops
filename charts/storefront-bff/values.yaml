@@ -3,11 +3,6 @@ backend:
     repository: ghcr.io/nashtech-garage/yas-storefront-bff
     tag: latest
 
-  hostAliases:
-    - ip: "172.18.0.2" 
-      hostnames:
-      - "identity.yas.local.com"
-
   imagePullSecrets:
   - name: dockerhub-secret
 
@@ -28,6 +23,9 @@ backend:
       value: prod
     - name: UI_HOST
       value: http://storefront-ui:3000
+    - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
+      value: http://keycloak-service.keycloak.svc.cluster.local/realms/Yas
+    
   extraEnvFroms:
     - secretRef:
         name: yas-keycloak-credentials-secret
