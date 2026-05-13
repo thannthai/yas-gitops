@@ -10,7 +10,7 @@ credentials:
     storefrontBffClientSecret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
     customerManagementClientSecret: NKAr3rnjwm9jlakgKpelukZGFaHYqIWE
   redis:
-    password: redis
+    password: mbL65KO7qh
   openai:
     apiKey: update-me
 
