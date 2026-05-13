@@ -9,6 +9,8 @@ backend:
   nameOverride: storefront-bff
   fullnameOverride: storefront-bff
 
+  httpPort: 80
+
   deployment:
     annotations:
       configmap.reloader.stakater.com/reload: "yas-gateway-routes-config-configmap,storefront-bff-extra-configmap"
