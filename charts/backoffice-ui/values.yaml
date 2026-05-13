@@ -1,8 +1,15 @@
 ui:
   image:
-    repository: ghcr.io/nashtech-garage/yas-backoffice
+    repository: thanhthai298/yas-backoffice
     tag: latest
+
+  imagePullSecrets:
+  - name: dockerhub-secret
+
   nameOverride: backoffice-ui
   fullnameOverride: backoffice-ui
+  extraEnvs:
+    - name: API_BASE_PATH
+      value: http://backoffice.yas.local.com/api
   ingress:
     enabled: false
