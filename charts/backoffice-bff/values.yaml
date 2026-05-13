@@ -3,6 +3,11 @@ backend:
     repository: thanhthai298/yas-backoffice-bff
     tag: main
 
+  hostAliases:
+    - ip: "172.18.0.2" 
+      hostnames:
+      - "identity.yas.local.com"
+
   imagePullSecrets:
   - name: dockerhub-secret
 
