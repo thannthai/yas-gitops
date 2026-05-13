@@ -1,10 +1,7 @@
 ui:
   image:
-    repository: thanhthai298/yas-backoffice
+    repository: ghcr.io/nashtech-garage/yas-backoffice
     tag: latest
-
-  imagePullSecrets:
-  - name: dockerhub-secret
 
   nameOverride: backoffice-ui
   fullnameOverride: backoffice-ui

@@ -1,10 +1,7 @@
 ui:
   image:
-    repository: thanhthai298/yas-storefront
+    repository: ghcr.io/nashtech-garage/yas-storefront
     tag: latest
-
-  imagePullSecrets:
-  - name: dockerhub-secret
 
   nameOverride: storefront-ui
   fullnameOverride: storefront-ui
