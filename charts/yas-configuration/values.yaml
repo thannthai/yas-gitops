@@ -58,7 +58,7 @@ applicationConfig:
       oauth2:
         resourceserver:
           jwt:
-            issuer-uri: http://identity.yas.local.com/realms/Yas
+            issuer-uri: http://identity.yas.local.com:8081/realms/Yas
 
     datasource:
       url:
@@ -213,7 +213,7 @@ backofficeBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              issuer-uri: http://identity.yas.local.com:8081/realms/Yas
           registration:
             api-client:
               provider: keycloak
@@ -233,7 +233,7 @@ storefrontBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              issuer-uri: http://identity.yas.local.com:8081/realms/Yas
           registration:
             api-client:
               provider: keycloak
