@@ -58,7 +58,7 @@ applicationConfig:
       oauth2:
         resourceserver:
           jwt:
-            issuer-uri: http://identity.yas.local.com/realms/Yas
+            issuer-uri: http://keycloak-service.keycloak.svc.cluster.local/realms/Yas
 
     datasource:
       url:
@@ -213,7 +213,7 @@ backofficeBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              issuer-uri: http://keycloak-service.keycloak.svc.cluster.local/realms/Yas
           registration:
             api-client:
               provider: keycloak
@@ -233,7 +233,7 @@ storefrontBffExtraConfig:
         client:
           provider:
             keycloak:
-              issuer-uri: http://identity.yas.local.com/realms/Yas
+              issuer-uri: http://keycloak-service.keycloak.svc.cluster.local/realms/Yas
           registration:
             api-client:
               provider: keycloak
@@ -252,7 +252,7 @@ mediaApplicationConfig:
 # Customer application config custom
 customerApplicationConfig:
   keycloak:
-    auth-server-url: http://identity.yas.local.com
+    auth-server-url: http://keycloak-service.keycloak.svc.cluster.local
     realm: Yas
     resource: customer-management
     credentials:
