@@ -26,7 +26,7 @@ backend:
     - name: UI_HOST
       value: http://storefront-ui:3000
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-      value: http://identity.yas.local.com/realms/Yas
+      value: http://keycloak-service.keycloak.svc.cluster.local/realms/Yas
     
   extraEnvFroms:
     - secretRef:
