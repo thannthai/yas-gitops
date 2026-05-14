@@ -28,7 +28,7 @@ spec:
     headers: xforwarded
   ingress:
     enabled: true
-    className: nginx
+    className: traefik
   unsupported:
     podTemplate:
       spec:
