@@ -4,6 +4,7 @@ metadata:
   name: keycloak-ingress
   namespace: keycloak
 spec:
+  ingressClassName: traefik
   rules:
   - host: identity.yas.local.com
     http:
