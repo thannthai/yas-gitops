@@ -45,6 +45,6 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  name: http
+                  number: {{ $svcPort }}
     {{- end }}
 {{- end }}
