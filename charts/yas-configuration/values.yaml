@@ -157,7 +157,7 @@ gatewayRoutesConfig:
                   - RewritePath=/api/(?<segment>.*), /$\{segment}
                   - TokenRelay=
               - id: tax_api
-                uri: http://tax
+                uri: http://tax:8080
                 order: 1
                 predicates:
                   - Path=/api/tax/**
