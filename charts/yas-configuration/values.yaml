@@ -40,7 +40,7 @@ applicationConfig:
     endpoints:
       web:
         exposure:
-          include: prometheus, health
+          include: prometheus, health, gateway
     endpoint:
       health:
         probes:
@@ -100,6 +100,7 @@ gatewayRoutesConfig:
         routes:
           - id: product_api
             uri: http://product
+            order: 1
             predicates:
               - Path=/api/product/**
             filters:
@@ -107,6 +108,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: location_api
             uri: http://location
+            order: 1
             predicates:
               - Path=/api/location/**
             filters:
@@ -114,6 +116,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: inventory_api
             uri: http://inventory
+            order: 1
             predicates:
               - Path=/api/inventory/**
             filters:
@@ -121,6 +124,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: cart_api
             uri: http://cart
+            order: 1
             predicates:
               - Path=/api/cart/**
             filters:
@@ -128,6 +132,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: customer_api
             uri: http://customer
+            order: 1
             predicates:
               - Path=/api/customer/**
             filters:
@@ -135,6 +140,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: media_api
             uri: http://media
+            order: 1
             predicates:
               - Path=/api/media/**
             filters:
@@ -142,6 +148,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: rating_api
             uri: http://rating
+            order: 1
             predicates:
               - Path=/api/rating/**
             filters:
@@ -149,6 +156,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: tax_api
             uri: http://tax
+            order: 1
             predicates:
               - Path=/api/tax/**
             filters:
@@ -156,6 +164,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: promotion_api
             uri: http://protion
+            order: 1
             predicates:
               - Path=/api/promotion/**
             filters:
@@ -163,6 +172,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: search_api
             uri: http://search
+            order: 1
             predicates:
               - Path=/api/search/**
             filters:
@@ -170,6 +180,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: order_api
             uri: http://order
+            order: 1
             predicates:
               - Path=/api/order/**
             filters:
@@ -177,6 +188,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: recommendation_api
             uri: http://recommendation
+            order: 1
             predicates:
               - Path=/api/recommendation/**
             filters:
@@ -184,6 +196,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: webhook_api
             uri: http://webhook
+            order: 1
             predicates:
               - Path=/api/webhook/**
             filters:
@@ -191,6 +204,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: sampledata_api
             uri: http://sampledata
+            order: 1
             predicates:
               - Path=/api/sampledata/**
             filters:
