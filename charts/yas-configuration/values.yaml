@@ -97,124 +97,126 @@ gatewayRoutesConfig:
   spring:
     cloud:
       gateway:
-        routes:
-          - id: product_api
-            uri: http://product
-            order: 1
-            predicates:
-              - Path=/api/product/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: location_api
-            uri: http://location
-            order: 1
-            predicates:
-              - Path=/api/location/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: inventory_api
-            uri: http://inventory
-            order: 1
-            predicates:
-              - Path=/api/inventory/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: cart_api
-            uri: http://cart
-            order: 1
-            predicates:
-              - Path=/api/cart/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: customer_api
-            uri: http://customer
-            order: 1
-            predicates:
-              - Path=/api/customer/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: media_api
-            uri: http://media
-            order: 1
-            predicates:
-              - Path=/api/media/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: rating_api
-            uri: http://rating
-            order: 1
-            predicates:
-              - Path=/api/rating/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: tax_api
-            uri: http://tax
-            order: 1
-            predicates:
-              - Path=/api/tax/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: promotion_api
-            uri: http://protion
-            order: 1
-            predicates:
-              - Path=/api/promotion/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: search_api
-            uri: http://search
-            order: 1
-            predicates:
-              - Path=/api/search/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: order_api
-            uri: http://order
-            order: 1
-            predicates:
-              - Path=/api/order/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: recommendation_api
-            uri: http://recommendation
-            order: 1
-            predicates:
-              - Path=/api/recommendation/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: webhook_api
-            uri: http://webhook
-            order: 1
-            predicates:
-              - Path=/api/webhook/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: sampledata_api
-            uri: http://sampledata
-            order: 1
-            predicates:
-              - Path=/api/sampledata/**
-            filters:
-              - RewritePath=/api/(?<segment>.*), /$\{segment}
-              - TokenRelay=
-          - id: ui
-            uri: ${UI_HOST}
-            order: 100
-            predicates:
-              - Path=/**
+        server:
+          webflux:
+            routes:
+              - id: product_api
+                uri: http://product
+                order: 1
+                predicates:
+                  - Path=/api/product/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: location_api
+                uri: http://location
+                order: 1
+                predicates:
+                  - Path=/api/location/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: inventory_api
+                uri: http://inventory
+                order: 1
+                predicates:
+                  - Path=/api/inventory/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: cart_api
+                uri: http://cart
+                order: 1
+                predicates:
+                  - Path=/api/cart/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: customer_api
+                uri: http://customer
+                order: 1
+                predicates:
+                  - Path=/api/customer/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: media_api
+                uri: http://media
+                order: 1
+                predicates:
+                  - Path=/api/media/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: rating_api
+                uri: http://rating
+                order: 1
+                predicates:
+                  - Path=/api/rating/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: tax_api
+                uri: http://tax
+                order: 1
+                predicates:
+                  - Path=/api/tax/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: promotion_api
+                uri: http://promotion
+                order: 1
+                predicates:
+                  - Path=/api/promotion/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: search_api
+                uri: http://search
+                order: 1
+                predicates:
+                  - Path=/api/search/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: order_api
+                uri: http://order
+                order: 1
+                predicates:
+                  - Path=/api/order/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: recommendation_api
+                uri: http://recommendation
+                order: 1
+                predicates:
+                  - Path=/api/recommendation/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: webhook_api
+                uri: http://webhook
+                order: 1
+                predicates:
+                  - Path=/api/webhook/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: sampledata_api
+                uri: http://sampledata
+                order: 1
+                predicates:
+                  - Path=/api/sampledata/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: ui
+                uri: ${UI_HOST}
+                order: 100
+                predicates:
+                  - Path=/**
 
 backofficeBffExtraConfig:
   spring:
