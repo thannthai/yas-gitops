@@ -198,6 +198,7 @@ gatewayRoutesConfig:
               - TokenRelay=
           - id: ui
             uri: ${UI_HOST}
+            order: 100
             predicates:
               - Path=/**
 
