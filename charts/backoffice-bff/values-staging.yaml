@@ -1,7 +1,7 @@
 backend:
   image:
     repository: thanhthai298/yas-backoffice-bff
-    tag: v1.0.3
+    tag: v1.0.7
 
   ingress:
     host: staging-backoffice.yas.local.com

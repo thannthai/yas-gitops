@@ -1,7 +1,7 @@
 backend:
   image:
     repository: thanhthai298/yas-storefront-bff
-    tag: v1.0.3
+    tag: v1.0.4
 
   ingress:
     host: staging-storefront.yas.local.com
