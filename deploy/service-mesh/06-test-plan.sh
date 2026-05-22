@@ -41,16 +41,31 @@ echo "→ Listing all AuthorizationPolicies..."
 kubectl get authorizationpolicy -n $NAMESPACE
 echo ""
 
+# ── Helper: check if HTTP response is received (any status = ALLOWED) ──
+# wget -S outputs headers to stderr; if we see "HTTP/" → connection reached destination
+check_connection() {
+  local POD=$1 CONTAINER=$2 TARGET_URL=$3
+  RESPONSE=$(kubectl exec -n $NAMESPACE "$POD" -c "$CONTAINER" -- \
+    sh -c "wget -S -O /dev/null --timeout=5 $TARGET_URL 2>&1" 2>/dev/null)
+  if echo "$RESPONSE" | grep -q "HTTP/"; then
+    HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP/" | tail -1 | awk '{print $2}')
+    echo "ALLOWED:$HTTP_CODE"
+  else
+    echo "DENIED"
+  fi
+}
+
 # Test 2a: ALLOWED — storefront-bff → product (SHOULD SUCCEED)
 echo "─── Test 2a: storefront-bff → product (Expect: ALLOWED ✅) ───"
 STOREFRONT_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=storefront-bff -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$STOREFRONT_POD" ]; then
   echo "  Pod: $STOREFRONT_POD"
-  if kubectl exec -n $NAMESPACE "$STOREFRONT_POD" -c storefront-bff -- \
-      wget -q -O /dev/null --timeout=5 http://product.$NAMESPACE:80/actuator/health 2>/dev/null; then
-    echo "  ✅ Connection ALLOWED (traffic passed through mesh)"
+  RESULT=$(check_connection "$STOREFRONT_POD" "storefront-bff" "http://product.$NAMESPACE:80/actuator/health")
+  if echo "$RESULT" | grep -q "^ALLOWED"; then
+    HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
+    echo "  ✅ Connection ALLOWED (HTTP $HTTP_CODE — traffic passed through mesh)"
   else
-    echo "  ⚠ Connection FAILED (expected to be allowed)"
+    echo "  ⚠ Connection DENIED (expected to be allowed)"
   fi
 else
   echo "  ⚠ storefront-bff pod not found"
@@ -62,11 +77,12 @@ echo "─── Test 2b: order → payment (Expect: ALLOWED ✅) ───"
 ORDER_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=order -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$ORDER_POD" ]; then
   echo "  Pod: $ORDER_POD"
-  if kubectl exec -n $NAMESPACE "$ORDER_POD" -c order -- \
-      wget -q -O /dev/null --timeout=5 http://payment.$NAMESPACE:80/actuator/health 2>/dev/null; then
-    echo "  ✅ Connection ALLOWED"
+  RESULT=$(check_connection "$ORDER_POD" "order" "http://payment.$NAMESPACE:80/actuator/health")
+  if echo "$RESULT" | grep -q "^ALLOWED"; then
+    HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
+    echo "  ✅ Connection ALLOWED (HTTP $HTTP_CODE)"
   else
-    echo "  ⚠ Connection FAILED (expected to be allowed)"
+    echo "  ⚠ Connection DENIED (expected to be allowed)"
   fi
 else
   echo "  ⚠ order pod not found"
@@ -78,8 +94,8 @@ echo "─── Test 2c: cart → payment (Expect: DENIED ❌ → 403) ───
 CART_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=cart -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$CART_POD" ]; then
   echo "  Pod: $CART_POD"
-  if kubectl exec -n $NAMESPACE "$CART_POD" -c cart -- \
-      wget -q -O /dev/null --timeout=5 http://payment.$NAMESPACE:80/actuator/health 2>/dev/null; then
+  RESULT=$(check_connection "$CART_POD" "cart" "http://payment.$NAMESPACE:80/actuator/health")
+  if echo "$RESULT" | grep -q "^ALLOWED"; then
     echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
   else
     echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
@@ -94,8 +110,8 @@ echo "─── Test 2d: product → order (Expect: DENIED ❌ → 403) ──�
 PRODUCT_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=product -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$PRODUCT_POD" ]; then
   echo "  Pod: $PRODUCT_POD"
-  if kubectl exec -n $NAMESPACE "$PRODUCT_POD" -c product -- \
-      wget -q -O /dev/null --timeout=5 http://order.$NAMESPACE:80/actuator/health 2>/dev/null; then
+  RESULT=$(check_connection "$PRODUCT_POD" "product" "http://order.$NAMESPACE:80/actuator/health")
+  if echo "$RESULT" | grep -q "^ALLOWED"; then
     echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
   else
     echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
@@ -110,8 +126,8 @@ echo "─── Test 2e: media → order (Expect: DENIED ❌ → 403) ───"
 MEDIA_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=media -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$MEDIA_POD" ]; then
   echo "  Pod: $MEDIA_POD"
-  if kubectl exec -n $NAMESPACE "$MEDIA_POD" -c media -- \
-      wget -q -O /dev/null --timeout=5 http://order.$NAMESPACE:80/actuator/health 2>/dev/null; then
+  RESULT=$(check_connection "$MEDIA_POD" "media" "http://order.$NAMESPACE:80/actuator/health")
+  if echo "$RESULT" | grep -q "^ALLOWED"; then
     echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
   else
     echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
