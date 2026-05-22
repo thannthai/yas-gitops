@@ -1,0 +1,114 @@
+# ============================================================================
+# Bước 4: VirtualService — Retry Policy (auto retry khi lỗi 5xx)
+# Khi service trả lỗi 500/502/503/504, Envoy sẽ tự động retry 3 lần
+# ============================================================================
+
+# --- Dev namespace ---
+
+# Product service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: product-retry
+  namespace: dev
+spec:
+  hosts:
+    - product
+  http:
+    - route:
+        - destination:
+            host: product
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx
+---
+# Cart service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cart-retry
+  namespace: dev
+spec:
+  hosts:
+    - cart
+  http:
+    - route:
+        - destination:
+            host: cart
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx
+---
+# Order service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: order-retry
+  namespace: dev
+spec:
+  hosts:
+    - order
+  http:
+    - route:
+        - destination:
+            host: order
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx
+---
+# Payment service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: payment-retry
+  namespace: dev
+spec:
+  hosts:
+    - payment
+  http:
+    - route:
+        - destination:
+            host: payment
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx
+---
+# Inventory service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: inventory-retry
+  namespace: dev
+spec:
+  hosts:
+    - inventory
+  http:
+    - route:
+        - destination:
+            host: inventory
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx
+---
+# Customer service retry
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: customer-retry
+  namespace: dev
+spec:
+  hosts:
+    - customer
+  http:
+    - route:
+        - destination:
+            host: customer
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: 5xx,reset,connect-failure,retriable-4xx

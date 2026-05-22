@@ -1,0 +1,24 @@
+# ============================================================================
+# Bước 2: PeerAuthentication — Bật mTLS STRICT cho toàn namespace
+# Mọi giao tiếp giữa các pod trong mesh phải được mã hoá TLS
+# ============================================================================
+
+# --- Dev namespace ---
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: dev
+spec:
+  mtls:
+    mode: STRICT
+---
+# --- Staging namespace ---
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: staging
+spec:
+  mtls:
+    mode: STRICT
