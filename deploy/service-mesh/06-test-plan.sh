@@ -41,17 +41,24 @@ echo "→ Listing all AuthorizationPolicies..."
 kubectl get authorizationpolicy -n $NAMESPACE
 echo ""
 
-# ── Helper: check if HTTP response is received (any status = ALLOWED) ──
-# wget -S outputs headers to stderr; if we see "HTTP/" → connection reached destination
+# ── Helper: check connectivity through the mesh ──
+# Returns: ALLOWED:<http_code> | DENIED:<http_code> | NORESPONSE
+# - HTTP 403 from Envoy = RBAC DENIED
+# - Any other HTTP response (200, 404, 503...) = ALLOWED (traffic passed through)
+# - No HTTP response = connection blocked / unreachable
 check_connection() {
   local POD=$1 CONTAINER=$2 TARGET_URL=$3
   RESPONSE=$(kubectl exec -n $NAMESPACE "$POD" -c "$CONTAINER" -- \
     sh -c "wget -S -O /dev/null --timeout=5 $TARGET_URL 2>&1" 2>/dev/null)
   if echo "$RESPONSE" | grep -q "HTTP/"; then
-    HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP/" | tail -1 | awk '{print $2}')
-    echo "ALLOWED:$HTTP_CODE"
+    HTTP_CODE=$(echo "$RESPONSE" | grep -oE "HTTP/[0-9\.]+ [0-9]+" | tail -1 | awk '{print $2}')
+    if [ "$HTTP_CODE" = "403" ]; then
+      echo "DENIED:403"
+    else
+      echo "ALLOWED:$HTTP_CODE"
+    fi
   else
-    echo "DENIED"
+    echo "NORESPONSE"
   fi
 }
 
@@ -64,8 +71,10 @@ if [ -n "$STOREFRONT_POD" ]; then
   if echo "$RESULT" | grep -q "^ALLOWED"; then
     HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
     echo "  ✅ Connection ALLOWED (HTTP $HTTP_CODE — traffic passed through mesh)"
+  elif echo "$RESULT" | grep -q "^DENIED"; then
+    echo "  ⚠ Connection DENIED by RBAC 403 (expected to be allowed!)"
   else
-    echo "  ⚠ Connection DENIED (expected to be allowed)"
+    echo "  ⚠ No response (expected to be allowed)"
   fi
 else
   echo "  ⚠ storefront-bff pod not found"
@@ -81,8 +90,10 @@ if [ -n "$ORDER_POD" ]; then
   if echo "$RESULT" | grep -q "^ALLOWED"; then
     HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
     echo "  ✅ Connection ALLOWED (HTTP $HTTP_CODE)"
+  elif echo "$RESULT" | grep -q "^DENIED"; then
+    echo "  ⚠ Connection DENIED by RBAC 403 (expected to be allowed!)"
   else
-    echo "  ⚠ Connection DENIED (expected to be allowed)"
+    echo "  ⚠ No response (expected to be allowed)"
   fi
 else
   echo "  ⚠ order pod not found"
@@ -95,10 +106,13 @@ CART_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=cart -o jsonp
 if [ -n "$CART_POD" ]; then
   echo "  Pod: $CART_POD"
   RESULT=$(check_connection "$CART_POD" "cart" "http://payment.$NAMESPACE:80/actuator/health")
-  if echo "$RESULT" | grep -q "^ALLOWED"; then
-    echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
+  if echo "$RESULT" | grep -q "^DENIED"; then
+    echo "  ✅ Connection DENIED by RBAC — HTTP 403 (expected behavior)"
+  elif echo "$RESULT" | grep -q "^ALLOWED"; then
+    HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
+    echo "  ⚠ Connection ALLOWED HTTP $HTTP_CODE (expected to be DENIED!)"
   else
-    echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
+    echo "  ✅ Connection blocked — no response (expected behavior)"
   fi
 else
   echo "  ⚠ cart pod not found"
@@ -111,10 +125,13 @@ PRODUCT_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=product -o
 if [ -n "$PRODUCT_POD" ]; then
   echo "  Pod: $PRODUCT_POD"
   RESULT=$(check_connection "$PRODUCT_POD" "product" "http://order.$NAMESPACE:80/actuator/health")
-  if echo "$RESULT" | grep -q "^ALLOWED"; then
-    echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
+  if echo "$RESULT" | grep -q "^DENIED"; then
+    echo "  ✅ Connection DENIED by RBAC — HTTP 403 (expected behavior)"
+  elif echo "$RESULT" | grep -q "^ALLOWED"; then
+    HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
+    echo "  ⚠ Connection ALLOWED HTTP $HTTP_CODE (expected to be DENIED!)"
   else
-    echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
+    echo "  ✅ Connection blocked — no response (expected behavior)"
   fi
 else
   echo "  ⚠ product pod not found"
@@ -127,10 +144,13 @@ MEDIA_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=media -o jso
 if [ -n "$MEDIA_POD" ]; then
   echo "  Pod: $MEDIA_POD"
   RESULT=$(check_connection "$MEDIA_POD" "media" "http://order.$NAMESPACE:80/actuator/health")
-  if echo "$RESULT" | grep -q "^ALLOWED"; then
-    echo "  ⚠ Connection ALLOWED (expected to be DENIED!)"
+  if echo "$RESULT" | grep -q "^DENIED"; then
+    echo "  ✅ Connection DENIED by RBAC — HTTP 403 (expected behavior)"
+  elif echo "$RESULT" | grep -q "^ALLOWED"; then
+    HTTP_CODE=$(echo "$RESULT" | cut -d: -f2)
+    echo "  ⚠ Connection ALLOWED HTTP $HTTP_CODE (expected to be DENIED!)"
   else
-    echo "  ✅ Connection DENIED by AuthorizationPolicy (expected behavior)"
+    echo "  ✅ Connection blocked — no response (expected behavior)"
   fi
 else
   echo "  ⚠ media pod not found"
