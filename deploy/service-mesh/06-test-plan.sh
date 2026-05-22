@@ -46,7 +46,7 @@ echo "─── Test 2a: storefront-bff → product (Expect: ALLOWED ✅) ──
 STOREFRONT_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=storefront-bff -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$STOREFRONT_POD" ]; then
   echo "  Pod: $STOREFRONT_POD"
-  RESULT=$(kubectl exec -n $NAMESPACE "$STOREFRONT_POD" -c storefront-bff -- \
+  RESULT=$(kubectl exec -n $NAMESPACE "$STOREFRONT_POD" -c istio-proxy -- \
     curl -s -o /dev/null -w "%{http_code}" http://product.$NAMESPACE:80/actuator/health --max-time 5 2>/dev/null || echo "FAIL")
   echo "  HTTP Status: $RESULT"
   if [ "$RESULT" = "200" ] || [ "$RESULT" = "503" ]; then
@@ -64,7 +64,7 @@ echo "─── Test 2b: order → payment (Expect: ALLOWED ✅) ───"
 ORDER_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=order -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$ORDER_POD" ]; then
   echo "  Pod: $ORDER_POD"
-  RESULT=$(kubectl exec -n $NAMESPACE "$ORDER_POD" -c order -- \
+  RESULT=$(kubectl exec -n $NAMESPACE "$ORDER_POD" -c istio-proxy -- \
     curl -s -o /dev/null -w "%{http_code}" http://payment.$NAMESPACE:80/actuator/health --max-time 5 2>/dev/null || echo "FAIL")
   echo "  HTTP Status: $RESULT"
   if [ "$RESULT" = "200" ] || [ "$RESULT" = "503" ]; then
@@ -82,7 +82,7 @@ echo "─── Test 2c: cart → payment (Expect: DENIED ❌ → 403) ───
 CART_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=cart -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$CART_POD" ]; then
   echo "  Pod: $CART_POD"
-  RESULT=$(kubectl exec -n $NAMESPACE "$CART_POD" -c cart -- \
+  RESULT=$(kubectl exec -n $NAMESPACE "$CART_POD" -c istio-proxy -- \
     curl -s -o /dev/null -w "%{http_code}" http://payment.$NAMESPACE:80/actuator/health --max-time 5 2>/dev/null || echo "FAIL")
   echo "  HTTP Status: $RESULT"
   if [ "$RESULT" = "403" ]; then
@@ -102,7 +102,7 @@ echo "─── Test 2d: product → order (Expect: DENIED ❌ → 403) ──�
 PRODUCT_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=product -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$PRODUCT_POD" ]; then
   echo "  Pod: $PRODUCT_POD"
-  RESULT=$(kubectl exec -n $NAMESPACE "$PRODUCT_POD" -c product -- \
+  RESULT=$(kubectl exec -n $NAMESPACE "$PRODUCT_POD" -c istio-proxy -- \
     curl -s -o /dev/null -w "%{http_code}" http://order.$NAMESPACE:80/actuator/health --max-time 5 2>/dev/null || echo "FAIL")
   echo "  HTTP Status: $RESULT"
   if [ "$RESULT" = "403" ]; then
@@ -122,7 +122,7 @@ echo "─── Test 2e: media → order (Expect: DENIED ❌ → 403) ───"
 MEDIA_POD=$(kubectl get pod -n $NAMESPACE -l app.kubernetes.io/name=media -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
 if [ -n "$MEDIA_POD" ]; then
   echo "  Pod: $MEDIA_POD"
-  RESULT=$(kubectl exec -n $NAMESPACE "$MEDIA_POD" -c media -- \
+  RESULT=$(kubectl exec -n $NAMESPACE "$MEDIA_POD" -c istio-proxy -- \
     curl -s -o /dev/null -w "%{http_code}" http://order.$NAMESPACE:80/actuator/health --max-time 5 2>/dev/null || echo "FAIL")
   echo "  HTTP Status: $RESULT"
   if [ "$RESULT" = "403" ]; then
